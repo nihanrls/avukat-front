@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,6 +13,8 @@ export default function Home() {
           height={38}
           priority
         />
+        <h1 className="text-yellow-500">Hello World</h1>
+        <h1>Hello World</h1>
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
             Get started by editing{" "}
@@ -47,6 +50,16 @@ export default function Home() {
           >
             Read our docs
           </a>
+          <Link href="/hakkinda">
+            <button className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-yellow-500 dark:hover:bg-yellow-500 hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44">
+              Hakkında
+            </button>
+          </Link>
+          <Link href="/iletisim">
+            <button className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-yellow-500 dark:hover:bg-yellow-500 hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44">
+              İletişim
+            </button>
+          </Link>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
