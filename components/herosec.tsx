@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import Link from 'next/link';
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -10,21 +11,24 @@ const HeroSection = () => {
       title: "Kaliteli Hizmet",
       description: "Profesyonel ekibimizle en iyi hizmeti sunuyoruz",
       image: "/media/justice.jpg",
-      buttonText: "Detaylı Bilgi"
+      buttonText: "Detaylı Bilgi",
+      buttonLink: "/avukatlar"
     },
     {
       id: 2,
       title: "Güvenilir Çözümler",
       description: "20 yıllık tecrübemizle yanınızdayız",
       image: "/media/avukatmasa.jpg",
-      buttonText: "Bize Ulaşın"
+      buttonText: "Bize Ulaşın",
+      buttonLink: "/iletisim"
     },
     {
       id: 3,
       title: "Modern Yaklaşım",
       description: "Yenilikçi çözümlerle işinizi ileriye taşıyın",
       image: "/media/law.jpg",
-      buttonText: "Hizmetlerimiz"
+      buttonText: "Hizmetlerimiz",
+      buttonLink: "/hizmetler"
     }
   ];
 
@@ -52,7 +56,7 @@ const HeroSection = () => {
   const buttonClasses = "bg-[#d4b996] hover:bg-[#c5aa87] text-[#2c1810] font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg transform";
 
   return (
-    <div className="relative h-[400px] lg:h-[500px] w-full overflow-hidden -mt-20 group">
+    <div className="relative h-[500px] lg:h-[650px] w-full overflow-hidden -mt-20 group">
       {/* Slider görselleri */}
       {slides.map((slide, index) => (
         <div
@@ -82,9 +86,11 @@ const HeroSection = () => {
                 <p className="text-xl mb-8">
                   {slide.description}
                 </p>
-                <button className={buttonClasses}>
-                  {slide.buttonText}
-                </button>
+                <Link href={slide.buttonLink}>
+                  <button className={buttonClasses}>
+                    {slide.buttonText}
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
