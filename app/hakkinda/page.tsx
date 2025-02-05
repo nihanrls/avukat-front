@@ -1,12 +1,13 @@
 "use client";
 import About from "@/components/about/about";
-import ConsultForm from "@/components/about/consultForm";
-
+import SpiderDiagram from "@/components/spider";
+import Strategy from "@/components/strategy";
 export default function Hakkinda() {
   return (
     <div>
       <About />
-      <ConsultForm />
+      <SpiderDiagram />
+      <Strategy />
     </div>
   );
 }
