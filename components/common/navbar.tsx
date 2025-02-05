@@ -2,10 +2,13 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { FaPhone, FaSearch } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isTransparentPage = pathname === '/' || pathname === '/hizmetler';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,9 +25,11 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed w-full z-50 transition-colors duration-300 ${
-      isScrolled 
-        ? 'bg-[#2c1810] shadow-lg' 
-        : 'bg-black/20 backdrop-blur-sm'
+      isTransparentPage 
+        ? isScrolled 
+          ? 'bg-[#2c1810] shadow-lg' 
+          : 'bg-black/20 backdrop-blur-sm'
+        : 'bg-[#2c1810]'
     }`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-20 text-white">
@@ -33,7 +38,7 @@ export default function Navbar() {
             <span className="text-3xl font-bold">W</span>
             <div className="text-sm">
               <div>WIZE</div>
-              <div>LAW SERVICES</div>
+              <div>Avukatlık Hizmetleri</div>
             </div>
           </Link>
 
@@ -44,7 +49,6 @@ export default function Navbar() {
             <Link href="/hizmetler" className="hover:text-gray-300">Hizmetler</Link>
             <Link href="/avukatlar" className="hover:text-gray-300">Avukatlar</Link>
             <Link href="/haberler" className="hover:text-gray-300">Haberler</Link>
-            <Link href="/sayfalar" className="hover:text-gray-300">Sayfalar</Link>
             <Link href="/iletisim" className="hover:text-gray-300">İletişim</Link>
           </div>
 
@@ -87,9 +91,9 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {isOpen && (
           <div className={`md:hidden pb-4 ${
-            isScrolled 
-              ? 'bg-[#2c1810]' 
-              : 'bg-black/80 backdrop-blur-md'
+            isTransparentPage && !isScrolled
+              ? 'bg-black/80 backdrop-blur-md'
+              : 'bg-[#2c1810]'
           }`}>
             <div className="flex flex-col space-y-3">
               <Link href="/" className="hover:text-gray-300">Ana Sayfa</Link>
@@ -97,7 +101,6 @@ export default function Navbar() {
               <Link href="/hizmetler" className="hover:text-gray-300">Hizmetler</Link>
               <Link href="/avukatlar" className="hover:text-gray-300">Avukatlar</Link>
               <Link href="/haberler" className="hover:text-gray-300">Haberler</Link>
-              <Link href="/sayfalar" className="hover:text-gray-300">Sayfalar</Link>
               <Link href="/iletisim" className="hover:text-gray-300">İletişim</Link>
               <div className="flex items-center space-x-2 pt-2">
                 <FaPhone className="text-blue-500" />
