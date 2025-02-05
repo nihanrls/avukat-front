@@ -37,7 +37,7 @@ export default function Navbar() {
             </button>
             <div className="flex items-center space-x-2">
               <FaPhone className="text-blue-500" />
-              <span className="text-lg font-semibold">800.567.1234</span>
+              <span className="text-lg font-semibold">555 555 55 55</span>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export default function Navbar() {
               <Link href="/iletisim" className="hover:text-gray-300">İletişim</Link>
               <div className="flex items-center space-x-2 pt-2">
                 <FaPhone className="text-blue-500" />
-                <span className="text-lg font-semibold">800.567.1234</span>
+                <span className="text-lg font-semibold">555 555 55 55</span>
               </div>
             </div>
           </div>
