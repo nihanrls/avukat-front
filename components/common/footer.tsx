@@ -36,19 +36,19 @@ export default function Footer() {
             <h3 className="text-[#E5B06E] text-lg font-semibold mb-4">Hizmetlerimiz</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-[#E5B06E] transition-colors duration-300">Ticaret Hukuku</a>
+                <a href="/hizmetler" className="hover:text-[#E5B06E] transition-colors duration-300">Ticaret Hukuku</a>
               </li>
               <li>
-                <a href="#" className="hover:text-[#E5B06E] transition-colors duration-300">Ceza Hukuku</a>
+                <a href="/hizmetler" className="hover:text-[#E5B06E] transition-colors duration-300">Ceza Hukuku</a>
               </li>
               <li>
-                <a href="#" className="hover:text-[#E5B06E] transition-colors duration-300">İş Hukuku</a>
+                <a href="/hizmetler" className="hover:text-[#E5B06E] transition-colors duration-300">İş Hukuku</a>
               </li>
               <li>
-                <a href="#" className="hover:text-[#E5B06E] transition-colors duration-300">Aile Hukuku</a>
+                <a href="/hizmetler" className="hover:text-[#E5B06E] transition-colors duration-300">Aile Hukuku</a>
               </li>
               <li>
-                <a href="#" className="hover:text-[#E5B06E] transition-colors duration-300">Gayrimenkul Hukuku</a>
+                <a href="/hizmetler" className="hover:text-[#E5B06E] transition-colors duration-300">Gayrimenkul Hukuku</a>
               </li>
             </ul>
           </div>

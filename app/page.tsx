@@ -20,19 +20,28 @@ export default function Home() {
   const handlePrevious = () => {
     setStartIndex((prev) => {
       if (prev === 0) {
-        return teamMembers.length - 4; // Son 4'lü gruba git
+        return teamMembers.length - getVisibleCount(); // En sona dön
       }
-      return prev - 1;
+      return Math.max(0, prev - 1);
     });
   };
 
   const handleNext = () => {
+    const visibleCount = getVisibleCount();
     setStartIndex((prev) => {
-      if (prev >= teamMembers.length - 4) {
-        return 0; // Başa dön
+      if (prev >= teamMembers.length - visibleCount) {
+        return 0; // En başa dön
       }
-      return prev + 1;
+      return Math.min(prev + 1, teamMembers.length - visibleCount);
     });
+  };
+
+  const getVisibleCount = () => {
+    const width = window.innerWidth;
+    if (width < 640) return 1; // Mobil
+    if (width < 768) return 2; // Tablet
+    if (width < 1024) return 3; // Küçük ekranlar
+    return 4; // Büyük ekranlar
   };
 
   return (
@@ -107,7 +116,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Ekibimiz Özet */}
+        {/* Uzman Ekibimiz Özet */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#2c1810] mb-4">Uzman Ekibimiz</h2>
@@ -123,13 +132,13 @@ export default function Home() {
             </button>
 
             {/* Avukatlar Grid */}
-            <div className="overflow-hidden px-12">
+            <div className="overflow-hidden px-4 sm:px-12">
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${startIndex * 25}%)` }}
+                style={{ transform: `translateX(-${startIndex * (100 / getVisibleCount())}%)` }}
               >
                 {teamMembers.map((member) => (
-                  <div key={member.id} className="w-1/4 flex-shrink-0 px-4">
+                  <div key={member.id} className="w-full flex-shrink-0 px-4 sm:w-1/2 md:w-1/3 lg:w-1/4">
                     <div className="text-center">
                       <div className="relative w-48 h-48 mx-auto mb-4">
                         <Image
