@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { FaPhone, FaSearch } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 
@@ -13,15 +13,13 @@ export default function Navbar() {
   const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const link = e.currentTarget;
     const rect = link.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left; // Mouse'un link içindeki X pozisyonu
+    const mouseX = e.clientX - rect.left;
     const line = link.querySelector('.hover-line') as HTMLElement;
     
     if (line) {
       if (mouseX < rect.width / 2) {
-        // Mouse soldan girdi
         line.style.transformOrigin = 'left';
       } else {
-        // Mouse sağdan girdi
         line.style.transformOrigin = 'right';
       }
       line.style.transform = 'scaleX(1)';
@@ -36,10 +34,8 @@ export default function Navbar() {
     
     if (line) {
       if (mouseX < rect.width / 2) {
-        // Mouse soldan çıktı
         line.style.transformOrigin = 'right';
       } else {
-        // Mouse sağdan çıktı
         line.style.transformOrigin = 'left';
       }
       line.style.transform = 'scaleX(0)';
@@ -59,9 +55,17 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
   return (
     <nav className={`fixed w-full z-50 transition-colors duration-300 ${
-      isTransparentPage 
+      isTransparentPage && !isOpen
         ? isScrolled 
           ? 'bg-[#2c1810] shadow-lg' 
           : 'bg-black/20 backdrop-blur-sm'
@@ -118,7 +122,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white p-2"
+              className="text-white p-2 z-50"
             >
               <svg
                 className="h-6 w-6"
@@ -141,36 +145,32 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className={`md:hidden pb-4 ${
-            isTransparentPage && !isScrolled
-              ? 'bg-black/80 backdrop-blur-md'
-              : 'bg-[#2c1810]'
-          }`}>
-            <div className="flex flex-col space-y-3">
-              {[
-                { href: "/", text: "Ana Sayfa" },
-                { href: "/hakkinda", text: "Hakkımızda" },
-                { href: "/hizmetler", text: "Hizmetler" },
-                { href: "/avukatlar", text: "Avukatlar" },
-                { href: "/haberler", text: "Haberler" },
-                { href: "/iletisim", text: "İletişim" }
-              ].map((link) => (
-                <Link 
-                  key={link.href} 
-                  href={link.href} 
-                  className="relative group px-4"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <span className="hover:text-gray-300 transition-colors">
+          <div className="fixed inset-0 top-0 left-0 w-full h-full bg-[#2c1810] z-40">
+            <div className="pt-24 px-4">
+              <div className="flex flex-col space-y-6">
+                {[
+                  { href: "/", text: "Ana Sayfa" },
+                  { href: "/hakkinda", text: "Hakkımızda" },
+                  { href: "/hizmetler", text: "Hizmetler" },
+                  { href: "/avukatlar", text: "Avukatlar" },
+                  { href: "/haberler", text: "Haberler" },
+                  { href: "/iletisim", text: "İletişim" }
+                ].map((link) => (
+                  <Link 
+                    key={link.href} 
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-white text-2xl hover:text-[#E5B06E] transition-colors"
+                  >
                     {link.text}
-                  </span>
-                  <span className="hover-line absolute -bottom-1 left-4 right-4 h-0.5 bg-[#E5B06E] transform scale-x-0 transition-transform duration-300"></span>
-                </Link>
-              ))}
-              <div className="flex items-center space-x-2 pt-2 px-4">
-                <FaPhone className="text-blue-500" />
-                <span className="text-lg font-semibold">555 555 55 55</span>
+                  </Link>
+                ))}
+                <div className="pt-8 border-t border-gray-700">
+                  <div className="flex items-center space-x-2 text-white mb-4">
+                    <FaPhone className="text-blue-500" />
+                    <span className="text-xl">555 555 55 55</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

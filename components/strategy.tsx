@@ -47,7 +47,7 @@ export default function Strategy() {
 
             {/* İçerik */}
             <div className="flex gap-3 md:gap-4 items-start">
-              <span className="text-4xl md:text-6xl font-light text-[#E5B06E] leading-none">
+              <span className="text-4xl md:text-6xl font-bold text-[#E5B06E] leading-none">
                 {strategy.number}
               </span>
               <div>
