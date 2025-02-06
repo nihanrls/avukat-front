@@ -40,10 +40,10 @@ export default function Haberler() {
     <div className="min-h-screen bg-gray-50 py-12 md:py-16">
       <div className="container mx-auto px-6 md:px-10">
         <div className="mb-8 md:mb-12 pl-4">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#2c1810] mb-4">
-            Hukuki Haberler ve Güncellemeler
+          <h1 className="text-center text-3xl md:text-4xl font-bold text-[#2c1810] mb-4">
+            Hukuki Bloglar ve Güncellemeler
           </h1>
-          <p className="text-gray-600 max-w-3xl">
+          <p className="text-center text-gray-600">
             Hukuk dünyasındaki son gelişmeler, yeni düzenlemeler ve önemli değişiklikler hakkında güncel bilgiler.
           </p>
         </div>

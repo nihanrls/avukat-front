@@ -56,7 +56,7 @@ const HeroSection = () => {
   const buttonClasses = "bg-[#d4b996] hover:bg-[#c5aa87] text-[#2c1810] font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg transform";
 
   return (
-    <div className="relative h-[550px] lg:h-[700px] w-full overflow-hidden -mt-20 group">
+    <div className="relative h-[450px] lg:h-[600px] w-full overflow-hidden -mt-20 group">
       {/* Slider görselleri */}
       {slides.map((slide, index) => (
         <div

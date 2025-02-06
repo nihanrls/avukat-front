@@ -1,12 +1,22 @@
 "use client";
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { FaPhone, FaSearch } from 'react-icons/fa';
+import { FaPhone, FaSearch, FaTimes } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
+
+const ToggleButton = ({ isToggled, onToggle }: { isToggled: boolean, onToggle: () => void }) => {
+  return (
+    <button onClick={onToggle} className="p-2 bg-transparent text-white rounded">
+      {isToggled ? <FaTimes /> : <FaSearch />}
+    </button>
+  );
+};
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
   const pathname = usePathname();
   const isTransparentPage = pathname === '/' || pathname === '/hizmetler';
 
@@ -42,15 +52,15 @@ export default function Navbar() {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
+  const handleScroll = () => {
+    if (window.scrollY > 0) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
 
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -62,6 +72,13 @@ export default function Navbar() {
       document.body.style.overflow = 'unset';
     }
   }, [isOpen]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Arama yapılıyor:", searchQuery);
+    // Arama sonuçları sayfasına yönlendirme yapılabilir
+    // window.location.href = `/search?query=${searchQuery}`;
+  };
 
   return (
     <nav className={`fixed w-full z-[9999] transition-colors duration-300 ${
@@ -82,43 +99,26 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {[
-              { href: "/", text: "Ana Sayfa" },
-              { href: "/hakkinda", text: "Hakkımızda" },
-              { href: "/hizmetler", text: "Hizmetler" },
-              { href: "/avukatlar", text: "Avukatlar" },
-              { href: "/haberler", text: "Haberler" },
-              { href: "/iletisim", text: "İletişim" }
-            ].map((link) => (
-              <Link 
-                key={link.href} 
-                href={link.href} 
-                className="relative group"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span className="hover:text-gray-300 transition-colors">
-                  {link.text}
-                </span>
-                <span className="hover-line absolute -bottom-2 left-0 w-full h-0.5 bg-[#E5B06E] transform scale-x-0 transition-transform duration-300"></span>
-              </Link>
-            ))}
+          {/* Arama İkonu */}
+          <div className="relative ml-4">
+            <ToggleButton isToggled={showSearch} onToggle={() => setShowSearch((prev) => !prev)} />
+            {showSearch && (
+              <form onSubmit={handleSearch} className="absolute right-0 flex items-center bg-white rounded-md shadow-md overflow-hidden">
+                <input
+                  type="text"
+                  placeholder="Arama yap..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="px-3 py-1 outline-none rounded-md focus:ring-2 focus:ring-[#ffffff] transition duration-200 w-48 text-sm text-black"
+                />
+                <button type="submit" className="bg-[#ffffff] p-2 rounded-md">
+                  <FaSearch className="text-[#2c1810]" />
+                </button>
+              </form>
+            )}
           </div>
 
-          {/* Right Section */}
-          <div className="hidden md:flex items-center space-x-6">
-            <button className="hover:text-gray-300">
-              <FaSearch size={18} />
-            </button>
-            <div className="flex items-center space-x-2">
-              <FaPhone className="text-blue-500" />
-              <span className="text-lg font-semibold">555 555 55 55</span>
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
+          {/* Hamburger Menü Butonu */}
           <div className="md:hidden relative z-[9999]">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -141,6 +141,39 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {[
+              { href: "/", text: "Ana Sayfa" },
+              { href: "/hakkinda", text: "Hakkımızda" },
+              { href: "/hizmetler", text: "Hizmetler" },
+              { href: "/avukatlar", text: "Avukatlar" },
+              { href: "/blog", text: "Blog" },
+              { href: "/iletisim", text: "İletişim" }
+            ].map((link) => (
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                className="relative group"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <span className="hover:text-gray-300 transition-colors">
+                  {link.text}
+                </span>
+                <span className="hover-line absolute -bottom-2 left-0 w-full h-0.5 bg-[#E5B06E] transform scale-x-0 transition-transform duration-300"></span>
+              </Link>
+            ))}
+          </div>
+
+          {/* Right Section */}
+          <div className="hidden md:flex items-center space-x-6">
+            <div className="flex items-center space-x-2">
+              <FaPhone className="text-blue-500" />
+              <span className="text-lg font-semibold">555 555 55 55</span>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -153,7 +186,7 @@ export default function Navbar() {
                   { href: "/hakkinda", text: "Hakkımızda" },
                   { href: "/hizmetler", text: "Hizmetler" },
                   { href: "/avukatlar", text: "Avukatlar" },
-                  { href: "/haberler", text: "Haberler" },
+                  { href: "/blog", text: "Blog" },
                   { href: "/iletisim", text: "İletişim" }
                 ].map((link) => (
                   <Link 
