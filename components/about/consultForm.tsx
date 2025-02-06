@@ -12,12 +12,9 @@ export default function Form() {
     <div className="bg-white py-12 md:py-16">
       <div className="container mx-auto px-6 md:px-10">
         <div className="mb-8 md:mb-12 pl-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#2c1810] mb-4">
+          <h2 className="text-center text-3xl md:text-4xl font-light text-[#2c1810] mb-4">
             Bize Ulaşın
           </h2>
-          <p className="text-gray-600 max-w-3xl">
-            Sorularınız için formu doldurun, size en kısa sürede dönüş yapalım.
-          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="max-w-5xl mx-auto">
