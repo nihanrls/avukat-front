@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import HeroSection from '../components/herosec';
+import HeroSection from '../components/common/herosec';
 import { FaBalanceScale, FaHandshake, FaGavel, FaUserTie, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useState } from 'react';
 
@@ -9,8 +9,8 @@ export default function Home() {
   const [startIndex, setStartIndex] = useState(0);
   
   const teamMembers = [
-    { id: 1, title: "Kurucu" },
-    { id: 2, title: "Kurucu Ortak" },
+    { id: 1, title: "Kurucu Ortak" },
+    { id: 2, title: "Kıdemli Ortak" },
     { id: 3, title: "Avukat" },
     { id: 4, title: "Avukat" },
     { id: 5, title: "Avukat" },
@@ -61,7 +61,7 @@ export default function Home() {
               <p className="text-gray-700 leading-relaxed">
                 20 yılı aşkın tecrübemizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık ve temsil hizmeti sunmaktayız. Uzman kadromuz, güncel hukuki gelişmeleri yakından takip ederek, her davanın özeline uygun çözümler üretmektedir.
               </p>
-              <Link href="/hakkimizda">
+              <Link href="/hakkinda">
                 <button className="mt-6 px-6 py-3 bg-[#2c1810] text-white rounded hover:bg-[#3d251a] transition-colors">
                   Detaylı Bilgi
                 </button>
@@ -133,7 +133,7 @@ export default function Home() {
                     <div className="text-center">
                       <div className="relative w-48 h-48 mx-auto mb-4">
                         <Image
-                          src={`/media/lawyer${member.id}.jpg`}
+                          src={`/media/lawyers/lawyer${member.id}.jpg`}
                           alt={`Avukat ${member.id}`}
                           fill
                           style={{objectFit: 'cover'}}

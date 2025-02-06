@@ -1,75 +1,98 @@
-export default function ConsultForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+'use client'
+
+import { FormEvent } from 'react';
+
+export default function Form() {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const subject = encodeURIComponent(formData.get('topic') as string);
-    const message = encodeURIComponent(
-      `Yaş: ${formData.get('age')}\nMesaj: ${formData.get('message')}`
-    );
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=umut3a5@gmail.com&su=${subject}&body=${message}`;
-    window.open(gmailUrl, '_blank');
+    // form işlemleri
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-6 space-y-4">
-      <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          E-posta Adresiniz
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
+    <div className="bg-white py-12 md:py-16">
+      <div className="container mx-auto px-6 md:px-10">
+        <div className="mb-8 md:mb-12 pl-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2c1810] mb-4">
+            Bize Ulaşın
+          </h2>
+          <p className="text-gray-600 max-w-3xl">
+            Sorularınız için formu doldurun, size en kısa sürede dönüş yapalım.
+          </p>
+        </div>
 
-      <div className="space-y-2">
-        <label htmlFor="age" className="block text-sm font-medium text-gray-700">
-          Yaşınız
-        </label>
-        <input
-          type="number"
-          name="age"
-          id="age"
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
+        <form onSubmit={handleSubmit} className="max-w-5xl mx-auto">
+          {/* İsim, Email ve Telefon (Yan Yana) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            {/* İsim Soyisim */}
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                İsim Soyisim <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#E5B06E] focus:border-[#E5B06E] outline-none transition-colors"
+                placeholder="Adınız Soyadınız"
+              />
+            </div>
 
-      <div className="space-y-2">
-        <label htmlFor="topic" className="block text-sm font-medium text-gray-700">
-          Danışmak İstediğiniz Konu
-        </label>
-        <input
-          type="text"
-          name="topic"
-          id="topic"
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                E-posta <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#E5B06E] focus:border-[#E5B06E] outline-none transition-colors"
+                placeholder="ornek@email.com"
+              />
+            </div>
 
-      <div className="space-y-2">
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-          Mesajınız
-        </label>
-        <textarea
-          name="message"
-          id="message"
-          rows={4}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
+            {/* Telefon */}
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                Telefon
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#E5B06E] focus:border-[#E5B06E] outline-none transition-colors"
+                placeholder="0555 555 55 55"
+              />
+            </div>
+          </div>
 
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 ease-in-out shadow-md hover:shadow-lg"
-      >
-        Gönder
-      </button>
-    </form>
+          {/* Mesaj */}
+          <div className="mb-6">
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+              Mesajınız
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={6}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#E5B06E] focus:border-[#E5B06E] outline-none transition-colors resize-none"
+              placeholder="Mesajınızı buraya yazın..."
+            ></textarea>
+          </div>
+
+          {/* Gönder Butonu */}
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="bg-[#d4b996] hover:bg-[#c5aa87] text-[#2c1810] font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg transform"
+            >
+              Gönder
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }

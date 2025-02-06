@@ -56,7 +56,7 @@ const HeroSection = () => {
   const buttonClasses = "bg-[#d4b996] hover:bg-[#c5aa87] text-[#2c1810] font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg transform";
 
   return (
-    <div className="relative h-[500px] lg:h-[650px] w-full overflow-hidden -mt-20 group">
+    <div className="relative h-[550px] lg:h-[700px] w-full overflow-hidden -mt-20 group">
       {/* Slider görselleri */}
       {slides.map((slide, index) => (
         <div
@@ -97,37 +97,40 @@ const HeroSection = () => {
         </div>
       ))}
 
-      {/* Sol bölge ve ok - Slide'lardan bağımsız */}
-      <div className="absolute left-0 top-0 w-[15%] h-full z-20 hover:opacity-100 group/left">
+      {/* Sol bölge ve ok */}
+      <div className="absolute left-0 top-0 w-[15%] h-full z-20 group/left">
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-white opacity-0 group-hover/left:opacity-100 transition-opacity duration-300"
+          className="absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 text-white opacity-0 group-hover/left:opacity-100 transition-opacity duration-300"
           aria-label="Önceki slayt"
         >
-          <FaChevronLeft size={32} />
+          <FaChevronLeft className="text-2xl sm:text-3xl md:text-4xl" />
         </button>
       </div>
 
-      {/* Sağ bölge ve ok - Slide'lardan bağımsız */}
-      <div className="absolute right-0 top-0 w-[15%] h-full z-20 hover:opacity-100 group/right">
+      {/* Sağ bölge ve ok */}
+      <div className="absolute right-0 top-0 w-[15%] h-full z-20 group/right">
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-white opacity-0 group-hover/right:opacity-100 transition-opacity duration-300"
+          className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 text-white opacity-0 group-hover/right:opacity-100 transition-opacity duration-300"
           aria-label="Sonraki slayt"
         >
-          <FaChevronRight size={32} />
+          <FaChevronRight className="text-2xl sm:text-3xl md:text-4xl" />
         </button>
       </div>
 
-      {/* Slider noktaları - Slide'lardan bağımsız */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+      {/* Slider noktaları */}
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 md:space-x-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              currentSlide === index ? 'bg-white scale-125' : 'bg-white/50'
+            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 rounded-full transition-all duration-300 ${
+              currentSlide === index 
+                ? 'bg-white scale-125' 
+                : 'bg-white/50 hover:bg-white/75'
             }`}
+            aria-label={`Slayt ${index + 1}'e git`}
           />
         ))}
       </div>

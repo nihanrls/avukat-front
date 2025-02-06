@@ -64,7 +64,7 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    <nav className={`fixed w-full z-50 transition-colors duration-300 ${
+    <nav className={`fixed w-full z-[9999] transition-colors duration-300 ${
       isTransparentPage && !isOpen
         ? isScrolled 
           ? 'bg-[#2c1810] shadow-lg' 
@@ -72,9 +72,9 @@ export default function Navbar() {
         : 'bg-[#2c1810]'
     }`}>
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-20 text-white">
+        <div className="flex justify-between items-center h-20 text-white relative">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2 relative z-[9999]">
             <span className="text-3xl font-bold">W</span>
             <div className="text-sm">
               <div>WIZE</div>
@@ -119,10 +119,10 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden relative z-[9999]">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white p-2 z-50"
+              className="text-white p-2"
             >
               <svg
                 className="h-6 w-6"
@@ -145,7 +145,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="fixed inset-0 top-0 left-0 w-full h-full bg-[#2c1810] z-40">
+          <div className="fixed inset-0 top-0 left-0 w-full h-full bg-[#2c1810] z-[9998]">
             <div className="pt-24 px-4">
               <div className="flex flex-col space-y-6">
                 {[
