@@ -24,17 +24,19 @@ const FilterTags = ({ tags }: { tags: string[] }) => {
   );
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 w-full max-w-xs md:max-w-sm lg:max-w-md">
+    <div className="bg-white shadow-md rounded-lg p-4 w-full max-w-xs md:max-w-sm lg:max-w-md mx-auto">
       <h2 className="text-lg font-semibold mb-2 text-[#2c1810]">Etiketler</h2>
       <div className="flex items-center mb-4">
-        <FaSearch className="text-gray-400 mr-2" />
         <input
           type="text"
           placeholder="Etiket ara..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="border border-gray-300 rounded-md px-2 py-1 w-full transition duration-200"
+          className="border border-gray-300 rounded-l-md px-2 py-1 w-full focus:outline-none"
         />
+        <button className="bg-[#d4b996] rounded-r-md p-2 flex items-center">
+          <FaSearch className="text-white" />
+        </button>
       </div>
       <div className="flex flex-wrap">
         {filteredTags.length > 0 ? (
