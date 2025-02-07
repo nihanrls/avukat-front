@@ -16,48 +16,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
   const pathname = usePathname();
   const isTransparentPage = pathname === '/' || pathname === '/hizmetler';
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const link = e.currentTarget;
-    const rect = link.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const line = link.querySelector('.hover-line') as HTMLElement;
-    
-    if (line) {
-      if (mouseX < rect.width / 2) {
-        line.style.transformOrigin = 'left';
-      } else {
-        line.style.transformOrigin = 'right';
-      }
-      line.style.transform = 'scaleX(1)';
-    }
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const link = e.currentTarget;
-    const rect = link.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const line = link.querySelector('.hover-line') as HTMLElement;
-    
-    if (line) {
-      if (mouseX < rect.width / 2) {
-        line.style.transformOrigin = 'right';
-      } else {
-        line.style.transformOrigin = 'left';
-      }
-      line.style.transform = 'scaleX(0)';
-    }
-  };
-
   const handleScroll = () => {
-    if (window.scrollY > 0) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
+    setIsScrolled(window.scrollY > 0);
   };
 
   useEffect(() => {
@@ -65,19 +28,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isOpen]);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Arama yapılıyor:", searchQuery);
-    // Arama sonuçları sayfasına yönlendirme yapılabilir
-    // window.location.href = `/search?query=${searchQuery}`;
   };
 
   return (
@@ -99,17 +52,42 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Arama İkonu */}
-          <div className="relative ml-4">
-            <ToggleButton isToggled={showSearch} onToggle={() => setShowSearch((prev) => !prev)} />
-            {showSearch && (
-              <form onSubmit={handleSearch} className="absolute right-0 flex items-center bg-white rounded-md shadow-md overflow-hidden">
+          {/* Sayfalara Erişim Butonları */}
+          <div className="hidden md:flex items-center justify-center flex-grow space-x-8">
+            {[
+              { href: "/", text: "Ana Sayfa" },
+              { href: "/hakkinda", text: "Hakkımızda" },
+              { href: "/hizmetler", text: "Hizmetler" },
+              { href: "/avukatlar", text: "Avukatlar" },
+              { href: "/blog", text: "Blog" },
+              { href: "/iletisim", text: "İletişim" },
+              { href: "/hesaplamalar", text: "Hesaplamalar" }
+            ].map((link) => (
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                className="relative group"
+              >
+                <span className="hover:text-gray-300 transition-colors">
+                  {link.text}
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          {/* Arama İkonu ve Çubuğu */}
+          <div className="relative flex items-center"> 
+            <button onClick={() => setIsOpen(!isOpen)} className="text-white p-2">
+              {isOpen ? <FaTimes /> : <FaSearch />}
+            </button>
+            {isOpen && (
+              <form onSubmit={handleSearch} className="absolute top-6 right-0 mt-2 flex items-center">
                 <input
                   type="text"
                   placeholder="Arama yap..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="px-3 py-1 outline-none rounded-md focus:ring-2 focus:ring-[#ffffff] transition duration-200 w-48 text-sm text-black"
+                  className="px-3 py-1 outline-none rounded-sm transition duration-200 w-48 text-sm text-black"
                 />
                 <button type="submit" className="bg-[#ffffff] p-2 rounded-md">
                   <FaSearch className="text-[#2c1810]" />
@@ -141,73 +119,7 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {[
-              { href: "/", text: "Ana Sayfa" },
-              { href: "/hakkinda", text: "Hakkımızda" },
-              { href: "/hizmetler", text: "Hizmetler" },
-              { href: "/avukatlar", text: "Avukatlar" },
-              { href: "/blog", text: "Blog" },
-              { href: "/iletisim", text: "İletişim" }
-            ].map((link) => (
-              <Link 
-                key={link.href} 
-                href={link.href} 
-                className="relative group"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span className="hover:text-gray-300 transition-colors">
-                  {link.text}
-                </span>
-                <span className="hover-line absolute -bottom-2 left-0 w-full h-0.5 bg-[#E5B06E] transform scale-x-0 transition-transform duration-300"></span>
-              </Link>
-            ))}
-          </div>
-
-          {/* Right Section */}
-          <div className="hidden md:flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
-              <FaPhone className="text-blue-500" />
-              <span className="text-lg font-semibold">555 555 55 55</span>
-            </div>
-          </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="fixed inset-0 top-0 left-0 w-full h-full bg-[#2c1810] z-[9998]">
-            <div className="pt-24 px-4">
-              <div className="flex flex-col space-y-6">
-                {[
-                  { href: "/", text: "Ana Sayfa" },
-                  { href: "/hakkinda", text: "Hakkımızda" },
-                  { href: "/hizmetler", text: "Hizmetler" },
-                  { href: "/avukatlar", text: "Avukatlar" },
-                  { href: "/blog", text: "Blog" },
-                  { href: "/iletisim", text: "İletişim" }
-                ].map((link) => (
-                  <Link 
-                    key={link.href} 
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-white text-2xl hover:text-[#E5B06E] transition-colors"
-                  >
-                    {link.text}
-                  </Link>
-                ))}
-                <div className="pt-8 border-t border-gray-700">
-                  <div className="flex items-center space-x-2 text-white mb-4">
-                    <FaPhone className="text-blue-500" />
-                    <span className="text-xl">555 555 55 55</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );

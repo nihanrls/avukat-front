@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import NewsCard from '@/components/newscard';
 import FilterTags from '@/components/FilterTags';
 import Postara from '@/components/postara';
+import Kategoriler from '@/components/kategoriler';
 
 const news = [
   {
@@ -65,6 +66,9 @@ export default function Haberler() {
             <FilterTags tags={tags} />
           <div className="mt-4">
             <Postara onSearch={handleSearch} />
+          </div>
+          <div className="mt-4">
+            <Kategoriler />
           </div>
           </div>
           <div className="w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
