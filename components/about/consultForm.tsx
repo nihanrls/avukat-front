@@ -5,7 +5,19 @@ import { FormEvent } from 'react';
 export default function Form() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // form işlemleri
+
+    // Form verilerini al
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+
+    // Alıcı e-posta adresi
+    const recipientEmail = 'ornek@email.com';
+
+    // Gmail mail gönderme sayfasına yeni sekmede yönlendirme
+    const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=İletişim Formu - ${name}&body=Gönderen: ${email}%0D%0A%0D%0A${message}`;
+    window.open(mailtoLink, '_blank'); // Yeni sekmede aç
   };
 
   return (
