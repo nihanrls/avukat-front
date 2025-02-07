@@ -1,4 +1,8 @@
+"use client";
+import React, { useState } from 'react';
 import NewsCard from '@/components/newscard';
+import FilterTags from '@/components/FilterTags';
+import Postara from '@/components/postara';
 
 const news = [
   {
@@ -35,31 +39,48 @@ const news = [
   }
 ];
 
-export default function Haberler() {
-  return (
-    <div className="min-h-screen bg-gray-50 py-12 md:py-16">
-      <div className="container mx-auto px-6 md:px-10">
-        <div className="mb-8 md:mb-12 pl-4">
-          <h1 className="text-center text-3xl md:text-4xl font-bold text-[#2c1810] mb-4">
-            Hukuki Bloglar ve Güncellemeler
-          </h1>
-          <p className="text-center text-gray-600">
-            Hukuk dünyasındaki son gelişmeler, yeni düzenlemeler ve önemli değişiklikler hakkında güncel bilgiler.
-          </p>
-        </div>
+const tags = ["Avukat", "Suç", "Kaza", "Danışmanlık", "Mülteci", "Göç"];
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {news.map((item) => (
-            <NewsCard
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              summary={item.summary}
-              image={item.image}
-              date={item.date}
-              category={item.category}
-            />
-          ))}
+export default function Haberler() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  return (
+    <div>
+      <div className="min-h-screen bg-gray-50 py-12 md:py-16">
+        <div className="container mx-auto px-6 md:px-10">
+          <div className="mb-8 md:mb-12 pl-4">
+            <h1 className="text-center text-3xl md:text-4xl font-bold text-[#2c1810] mb-4">
+              Hukuki Bloglar ve Güncellemeler
+            </h1>
+            <p className="text-center text-gray-600">
+              Hukuk dünyasındaki son gelişmeler, yeni düzenlemeler ve önemli değişiklikler hakkında güncel bilgiler.
+            </p>
+          </div>
+          <div className="flex flex-col md:flex-row gap-10">
+          <div className="w-1/4">
+            <FilterTags tags={tags} />
+          <div className="mt-4">
+            <Postara onSearch={handleSearch} />
+          </div>
+          </div>
+          <div className="w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {news.map((item) => (
+              <NewsCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                summary={item.summary}
+                image={item.image}
+                date={item.date}
+                category={item.category}
+              />
+            ))}
+          </div>
+          </div>
         </div>
       </div>
     </div>
