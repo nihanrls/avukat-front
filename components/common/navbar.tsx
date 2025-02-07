@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import HesaplamalarDropdown from '@/components/dropdown';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed w-full z-[9999] transition-colors duration-300 ${
-      isTransparentPage && !isScrolled
+      isOpen || (isTransparentPage && !isScrolled)
         ? 'bg-black/20 backdrop-blur-sm'
         : 'bg-[#2c1810]'
     }`}>
@@ -65,13 +66,7 @@ export default function Navbar() {
               >
                 Hesaplamalar <span className={`ml-2 transition-transform ${isDropdownOpen ? 'rotate-90' : ''}`}>►</span>
               </button>
-              {isDropdownOpen && (
-                <div className="absolute left-0 mt-2 bg-[#2c1810] text-white p-2 rounded shadow-lg transition-all duration-300">
-                  <Link href="/hesaplama1" className="block py-1">Hesaplama 1</Link>
-                  <Link href="/hesaplama2" className="block py-1">Hesaplama 2</Link>
-                  <Link href="/hesaplama3" className="block py-1">Hesaplama 3</Link>
-                </div>
-              )}
+              <HesaplamalarDropdown isOpen={isDropdownOpen} toggleDropdown={() => setIsDropdownOpen(!isDropdownOpen)} />
             </div>
           </div>
 
@@ -94,7 +89,7 @@ export default function Navbar() {
 
       {/* Mobil Menü */}
       {isOpen && (
-        <div className="fixed inset-0 bg-[#2c1810] text-white p-4 flex flex-col">
+        <div className="relative fixed inset-0 bg-[#2c1810] text-white p-4 flex flex-col">
           {[
             { href: "/", text: "Ana Sayfa" },
             { href: "/hakkinda", text: "Hakkımızda" },
@@ -121,13 +116,7 @@ export default function Navbar() {
             >
               Hesaplamalar <span className={`ml-2 transition-transform ${isDropdownOpen ? 'rotate-90' : ''}`}>►</span>
             </button>
-            {isDropdownOpen && (
-              <div className="bg-[#2c1810] text-white p-2 rounded shadow-lg transition-all duration-300">
-                <Link href="/hesaplama1" className="block py-1">Hesaplama 1</Link>
-                <Link href="/hesaplama2" className="block py-1">Hesaplama 2</Link>
-                <Link href="/hesaplama3" className="block py-1">Hesaplama 3</Link>
-              </div>
-            )}
+            <HesaplamalarDropdown isOpen={isDropdownOpen} toggleDropdown={() => setIsDropdownOpen(!isDropdownOpen)} />
           </div>
         </div>
       )}
