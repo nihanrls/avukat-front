@@ -64,7 +64,8 @@ export default function Navbar() {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
                 className="flex items-center text-white"
               >
-                Hesaplamalar <span className={`ml-2 transition-transform ${isDropdownOpen ? 'rotate-90' : ''}`}>►</span>
+                Hesaplamalar 
+                <span className={`ml-2 transition-transform ${isDropdownOpen ? 'rotate-90' : ''}`} style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>►</span>
               </button>
               <HesaplamalarDropdown isOpen={isDropdownOpen} toggleDropdown={() => setIsDropdownOpen(!isDropdownOpen)} />
             </div>
@@ -114,7 +115,8 @@ export default function Navbar() {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
               className="flex items-center text-white"
             >
-              Hesaplamalar <span className={`ml-2 transition-transform ${isDropdownOpen ? 'rotate-90' : ''}`}>►</span>
+              Hesaplamalar 
+              <span className={`ml-2 transition-transform ${isDropdownOpen ? 'rotate-90' : ''}`} style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>►</span>
             </button>
             <HesaplamalarDropdown isOpen={isDropdownOpen} toggleDropdown={() => setIsDropdownOpen(!isDropdownOpen)} />
           </div>
